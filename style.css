@@ -1,0 +1,33 @@
+:root {
+    --pine-tree: #1a2318;
+    --rifle-green: #435143;
+    --russian-green: #5f8e5a;
+    --light-green: #86e67d;
+    --mint-grey: #a5c1a2;
+    --honeydew: #f1fff5;
+}
+
+#ttnbtext {
+    color: var(--mint-grey);
+    font-size: 40px;
+    text-align: center;
+}
+
+#time {
+    font-size: 96px;
+    color: var(--honeydew)
+}
+
+body {
+    background: var(--pine-tree);
+    color: var(--honeydew);
+    font-family: Verdana;
+}
+
+.centered {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
