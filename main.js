@@ -87,7 +87,7 @@ const tueThu = [
     [12, 52, 0, "block 6 starts"],
     [13, 46, 0, "block 6 ends"],
     [13, 51, 0, "block 7 starts"],
-    [16, 27, 0, "school ends"]
+    [14, 45, 0, "school ends"]
 ]
 
 const monWedFri = [
