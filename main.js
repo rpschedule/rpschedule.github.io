@@ -115,6 +115,16 @@ const monWedFri = [
     [14, 45, 0, "school ends"]
 ]
 
+function update (txt, id) {
+    const element = document.getElementById(id);
+
+    if ( txt === element.innerHTML) {
+        return;
+    }
+    
+    element.innerHTML = txt;
+}
+
 function dispTmLft (id) {
     const element = document.getElementById(id);
     const time = new Date(Date.now());
@@ -125,7 +135,7 @@ function dispTmLft (id) {
 
     // Check if it is a half day or a day off
     if (yearSchedule[time.getMonth()].offdays.includes(time.getDate())) {
-        return element.innerHTML = "<span id=\"time\">No school today</span>";
+        return update("<span id=\"time\">No school today</span>", id)
     }
 
     if (yearSchedule[time.getMonth()].halfdays.includes(time.getDate())) {
@@ -148,20 +158,19 @@ function dispTmLft (id) {
             schedule = tueThu;
         } 
         else {
-            element.innerHTML = "<span id=\"time\">No school today</span>";
+            return update("<span id=\"time\">No school today</span>", id);
         }
     }
 
     // Check if school is over
     if ( time.getHours() > schedule[schedule.length - 1][0] ) { // Quick check via the hour
-        return element.innerHTML = "<span id=\"time\">School ended</span>";
-    } 
-    else if ( // Check via minutes and seconds 
+        return update("<span id=\"time\">School ended</span>", id);
+    } else if ( // Check via minutes and seconds 
             time.getHours() === schedule[schedule.length - 1][0] && 
             time.getMinutes() >= schedule[schedule.length - 1][1] && 
             time.getSeconds() > schedule[schedule.length - 1][2]
         ) {
-        return element.innerHTML = "<span id=\"time\">School ended</span>";        
+        return update("<span id=\"time\">School ended</span>", id);        
     }
 
     for (block2 in schedule) {
@@ -190,8 +199,7 @@ function dispTmLft (id) {
         minute = `0${minute}`
     }
 
-    let result = `<span id="time">${hour}:${minute}:${second}</span><br>until ${schedule[block][3]}`
-    element.innerHTML = result;
+    update(`<span id="time">${hour}:${minute}:${second}</span><br>until ${schedule[block][3]}`, id);
 }
 
 window.onload = function () {
