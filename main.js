@@ -44,8 +44,8 @@ const yearSchedule = [
         "offdays": [1, 23, 24, 25, 28]
     },
     {
-        "halfdays": [22],
-        "offdays": [23, 26, 27, 28, 29, 30]
+        "halfdays": [],
+        "offdays": [22, 23, 26, 27, 28, 29, 30]
     },
 ];
 
