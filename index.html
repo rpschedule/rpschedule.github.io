@@ -1,18 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        <title>RP Schedule</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
         <link rel="stylesheet" href="./style.css">
-        <meta name="description" content="A simple website to display the amount of time left until the current block ends. Uses the RayPec bell schedule for timing. Works with half days and days off.">
-        <meta name="keywords" content="rpschedule, raypec, bell schedule, schedule, rp, time until next block, ttnb, bell">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="./main.js"></script>
+        <title>RP Schedule</title>
     </head>
     <body>
-        <div class="centered">
-            <p id="ttnbtext"> 
-                <span id="time">0:00:00</span>
-            </p>
+        <img src="settingsicon.svg" onclick="settings()">
+
+        <div id="blockTime">
+            <h1 id="time">
+                <div id="hours">00</div>
+                <div id="colon1">:</div>
+                <div id="minutes">00</div>
+                <div id="colon2">:</div>
+                <div id="seconds">00</div>
+            </h1>
+            <h3 id="block">
+                Until <div id="blockEvent">block 3 starts</div>
+            </h3>
         </div>
+
+        <a id="github" href="https://github.com/rpschedule/rpschedule.github.io">github repo</a>
     </body>
 </html>
