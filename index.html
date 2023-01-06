@@ -7,15 +7,11 @@
         <title>RP Schedule</title>
     </head>
     <body>
-        <img src="settingsicon.svg" onclick="settings()">
+        <img id="settings" src="./settingsicon.svg" width="30px" height="30px" onclick="settings()">
 
         <div id="blockTime">
             <h1 id="time">
-                <div id="hours">00</div>
-                <div id="colon1">:</div>
-                <div id="minutes">00</div>
-                <div id="colon2">:</div>
-                <div id="seconds">00</div>
+                <span id="hours">00</span><span id="colon1">:</span><span id="minutes">00</span><span id="colon2">:</span><span id="seconds">00</span>
             </h1>
             <h3 id="block">
                 Until <div id="blockEvent">block 3 starts</div>
