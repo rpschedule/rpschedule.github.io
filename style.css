@@ -1,5 +1,3 @@
-
-
 :root {
     --rich-black-fogra-29: #121619ff;
     --medium-aquamarine: #56e39fff;
@@ -8,19 +6,43 @@
     --rose-dust: #985f6fff;
 }
 
+html {
+    height: 100%;
+}
+
 body {
     background: var(--rich-black-fogra-29);
     color: var(--lavender-web);
-    font-family: Verdana, Roboto;
+    font-family: Roboto;
 }
 
-div {
-    white-space: nowrap;
-    display: inline-block;
-}
-
-#settings {
+#menu {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 20px;
+}
+
+#blockTime {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+#time {
+    font-size: 100px;
+    margin: 10px;
+}
+
+#block {
+    font-size: 24px;
+    margin: 5px;
+}
+
+#github {
+    position: absolute;
+    left: 50%;
+    bottom: 3em;
+    transform: translate(-50%, 0);
 }

@@ -7,17 +7,15 @@
         <title>RP Schedule</title>
     </head>
     <body>
-        <img id="settings" src="./settingsicon.svg" width="30px" height="30px" onclick="settings()">
+        <p id="menu" onclick="openMenu();">menu</p>
 
         <div id="blockTime">
-            <h1 id="time">
+            <p id="time">
                 <span id="hours">00</span><span id="colon1">:</span><span id="minutes">00</span><span id="colon2">:</span><span id="seconds">00</span>
-            </h1>
-            <h3 id="block">
-                Until <div id="blockEvent">block 3 starts</div>
-            </h3>
+            </p>
+            <p id="block">
+                Until <span id="blockEvent">block 3 starts</span>
+            </p>
         </div>
-
-        <a id="github" href="https://github.com/rpschedule/rpschedule.github.io">github repo</a>
     </body>
 </html>
