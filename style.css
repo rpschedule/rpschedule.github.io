@@ -18,7 +18,7 @@
 body {
     background: var(--background);
     color: var(--text);
-    font-family: Verdana;
+    font-family: Roboto;
 }
 
 .centered {
