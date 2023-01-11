@@ -1,8 +1,8 @@
-
-function openMenu () {
-    document.getElementById('menu').classList.remove('hidden');
-}
-
-function closeMenu () {
-    document.getElementById('menu').classList.add('hidden')
+/**
+ * Toggles the class 'hidden' for the element id 'menu'
+ */
+function toggleMenu () {
+    const menu = document.getElementById('menu');
+    if ( menu.classList.contains('hidden') ) return menu.classList.remove('hidden');
+    menu.classList.add('hidden')
 }
