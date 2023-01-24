@@ -1,24 +1,31 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-        <link rel="stylesheet" href="./style.css">
-        <script src="./main.js"></script>
-        <title>RP Schedule</title>
-    </head>
-    <body>
-        <div id="menuIcon" onclick="toggleMenu();">menu</div>
-        <div id="menu">
-            <p>oosh my goosh its the overlay :uwu:</p>
-        </div>
 
-        <div id="blockTime">
-            <p id="time">
-                <span id="hours">00</span><span id="colon1">:</span><span id="minutes">00</span><span id="colon2">:</span><span id="seconds">00</span>
-            </p>
-            <p id="block">
-                Until <span id="blockEvent">block 3 starts</span>
-            </p>
-        </div>
-    </body>
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./main.js"></script>
+    <title>RP Schedule</title>
+</head>
+
+<body>
+    <div id="menuOpen" onclick="openMenu();">menu</div>
+    <div id="menu">
+        <div id="menuClose" onclick="closeMenu();">x</div>
+        <ul>
+            <li> <a>Foo</a> </li>
+            <li> <a>Bar</a> </li>
+        </ul>
+    </div>
+
+    <div id="blockTime">
+        <p id="time">
+            <span id="hours">00</span><span id="colon1">:</span><span id="minutes">00</span><span id="colon2">:</span><span id="seconds">00</span>
+        </p>
+        <p id="block">
+            Until <span id="blockEvent">block 3 starts</span>
+        </p>
+    </div>
+</body>
+
 </html>
