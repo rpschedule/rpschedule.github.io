@@ -1,13 +1,7 @@
 :root {
     --background: #121619ff;
-    --hover: #56e39fff;
+    --accent: #56e39fff;
     --text: #d9dbf1ff;
-    /* --cerise: #da4167ff;
-    --rose-dust: #985f6fff; */
-}
-
-html {
-    height: 100%;
 }
 
 body {
@@ -24,16 +18,25 @@ body {
     transition: color .5s ease 0s;
 }
 
+#menuIcon:hover {
+    color: var(--accent);
+}
+
 *[onclick] {
     cursor: pointer;
 }
 
-#menuIcon:hover {
-    color: var(--hover);
-}
-
 #menu {
-    background: var(--background)
+    background: var(--accent);
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    overflow-x: hidden;
+    padding-top: 50px;
+    transition: 1s;
 }
 
 #blockTime {
@@ -52,13 +55,6 @@ body {
 #block {
     font-size: 24px;
     margin: 5px;
-}
-
-#github {
-    position: absolute;
-    left: 50%;
-    bottom: 3em;
-    transform: translate(-50%, 0);
 }
 
 .hidden {

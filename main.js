@@ -3,6 +3,6 @@
  */
 function toggleMenu () {
     const menu = document.getElementById('menu');
-    if ( menu.classList.contains('hidden') ) return menu.classList.remove('hidden');
-    menu.classList.add('hidden')
+    if ( menu.style.width == "0" ) return menu.style.width = "250px";
+    menu.style.width = "0";
 }
