@@ -1,11 +1,12 @@
 :root {
     --background: #121619ff;
+    --shadow: #0d1012ff;
     --accent: #56e39fff;
     --text: #d9dbf1ff;
 }
 
 body {
-    background: var(--background);
+    background-color: var(--background);
     color: var(--text);
     font-family: Roboto;
 }
@@ -15,7 +16,6 @@ body {
     margin: 10px;
     top: 0px;
     right: 0px;
-    transition: color .5s ease 0s;
 }
 
 #menuClose {
@@ -25,9 +25,8 @@ body {
 }
 
 #menu {
-    background: var(--background);
-    outline: 2px solid var(--accent);
-    transition: 1s;
+    background: var(--shadow);
+    transition: .75s;
 
     position: fixed;
     height: 100%;
@@ -40,8 +39,19 @@ body {
     overflow-x: hidden;
 }
 
+#menu-content {
+    padding-left: 30px;
+    white-space: nowrap;
+}
+
+#menu-content ul {
+    list-style-type: none;
+    list-style: none;
+}
+
 *[onclick] {
     cursor: pointer;
+    transition: color .5s ease 0s;
 }
 
 *[onclick]:hover {
@@ -64,8 +74,4 @@ body {
 #block {
     font-size: 24px;
     margin: 5px;
-}
-
-.hidden {
-    display: none;
 }
