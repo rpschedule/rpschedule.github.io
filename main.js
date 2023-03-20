@@ -9,7 +9,7 @@ const yearSchedule = [
     },
     {
         "halfdays": [],
-        "offdays": [6, 20]
+        "offdays": [6]
     },
     {
         "halfdays": [],
