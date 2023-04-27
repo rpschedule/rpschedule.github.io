@@ -5,7 +5,5 @@ export default function Clock () {
 
     const nextBlock = [1, 3, 5].includes(time.getDay()) ? new Date( time.getFullYear(), time.getMonth(), time.getDay(), Schedule.MON_WED_FRI)
 
-    if (  {
-        const nextBlock = new Date( time.getFullYear(), time.getMonth(), time.getDay(), )
-    }
+    
 }
