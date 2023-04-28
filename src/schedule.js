@@ -62,4 +62,54 @@ export const Schedule = {
         [13, 56, 0, "block 7 starts"],
         [14, 45, 0, "school ends"]
     ],
+    YEAR_SCHEDULE: [
+        {
+            "halfdays": [],
+            "offdays": [2, 3, 4, 16, 30]
+        },
+        {
+            "halfdays": [],
+            "offdays": [13, 20, 21]
+        },
+        {
+            "halfdays": [],
+            "offdays": [6]
+        },
+        {
+            "halfdays": [],
+            "offdays": [3, 4, 5, 6, 7, 10]
+        },
+        {
+            "halfdays": [23],
+            "offdays": [1]
+        },
+        {
+            "halfdays": [],
+            "offdays": []
+        },
+        {
+            "halfdays": [],
+            "offdays": []
+        },
+        {
+            "halfdays": [],
+            "offdays": []
+        },
+        {
+            "halfdays": [],
+            "offdays": [5, 19]
+        },
+        {
+            "halfdays": [27],
+            "offdays": [3, 17, 28, 31]
+        },
+        {
+            "halfdays": [],
+            "offdays": [1, 23, 24, 25, 28]
+        },
+        {
+            "halfdays": [],
+            "offdays": [22, 23, 26, 27, 28, 29, 30]
+        },
+    ],
 }
