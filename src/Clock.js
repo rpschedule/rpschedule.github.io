@@ -6,11 +6,20 @@ export default function Clock () {
 function getNextBlock () {
     const now = new Date(Date.now);
     let nextSchoolDayIndex;
+
     for ( let i = 0; i < 365 && !nextSchoolDay; i++ ) {
         const compDate = new Date ( now.getTime() + 86400000 * i );
         if ( compDate.isSchoolDay() ) nextSchoolDay = compDate;
     }
 
+    let blocks = []
+    let schedule = now.schedule() === 1 ? Schedule.MON_WED_FRI : 
+        now.schedule() === 2 ? Schedule.TUES_THUR :
+        now.schedule() === 3 ? Schedule.HALF_DAY : null; 
+
+    for (let i in schedule) {
+        
+    }
 }
 
 /**
