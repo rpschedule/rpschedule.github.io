@@ -3,7 +3,7 @@ import { Schedule } from './schedule.js'
 export default function Clock () {
     const nextBlock = getNextBlock();
 
-    const ttnb = nextBlock.getTime() - Date.now();
+    // const ttnb = nextBlock.getTime() - Date.now();
     
     // convert to days, hours, minutes, and seconds (possibly milliseconds too) then display to user
 
@@ -40,7 +40,7 @@ function getNextBlock () {
         ));
     }
 
-    return blocks.filter(date => date.getTime() > now.getTime())[0];
+    return blocks.filter(date => date.getTime() > now.getTime());
 }
 
 /**
