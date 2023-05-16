@@ -1,7 +1,11 @@
 import { Schedule } from './schedule.js' 
 
 export default function Clock () {
-    alert(getNextBlock())
+    const nextBlock = getNextBlock();
+
+    const ttnb = nextBlock.getTime() - Date.now();
+    
+    // convert to days, hours, minutes, and seconds (possibly milliseconds too) then display to user
 
     return <p> wassup gents </p>
 }
@@ -29,16 +33,14 @@ function getNextBlock () {
         blocks.push(new Date(
             nextSchoolDay.getFullYear(), 
             nextSchoolDay.getMonth(), 
-            nextSchoolDay.getDay(), 
+            nextSchoolDay.getDate(), 
             hours, 
             minutes, 
             seconds
         ));
     }
 
-    blocks = blocks.filter(date => date.getTime() > now.getTime())
-
-    return blocks;
+    return blocks.filter(date => date.getTime() > now.getTime())[0];
 }
 
 /**
@@ -47,8 +49,8 @@ function getNextBlock () {
  * @param {date} date - The date to use
  * @returns {boolean} 
  */
-function isSchoolDay (schedule, date) {
-    return !schedule.YEAR_SCHEDULE[date.getMonth()].offdays.includes(date.getDate());
+function isSchoolDay (date) {
+    return !Schedule.YEAR_SCHEDULE[date.getMonth()].offdays.includes(date.getDate());
 }
 
 /**
@@ -57,8 +59,8 @@ function isSchoolDay (schedule, date) {
  * @param {date} date - The date to use
  * @returns {boolean} 
  */
-function isHalfDay (schedule, date) {
-    return !schedule.YEAR_SCHEDULE[date.getMonth()].halfdays.includes(date.getDate());
+function isHalfDay (date) {
+    return !Schedule.YEAR_SCHEDULE[date.getMonth()].halfdays.includes(date.getDate());
 }
 
 /**
