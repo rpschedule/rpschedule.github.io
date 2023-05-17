@@ -3,7 +3,7 @@ import Clock from './Clock'
 
 function App() {
   return (
-    <Clock showWeeks={true}/>
+    <Clock showWeeks={true} showMilliseconds={true}/>
   );
 }
 

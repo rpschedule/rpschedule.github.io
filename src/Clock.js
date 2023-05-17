@@ -1,18 +1,18 @@
 import { Schedule } from './schedule.js'
 import { useState, useEffect } from 'react';
 
-export default function Clock({ showWeeks, showMilliseconds }) {
+export default function Clock({ showWeeks }) {
     const [time, setTime] = useState(new Date());
 
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
-        }, 1000);
+        }, 500);
 
         return () => clearInterval(interval);
     }, []);
 
-    const nextBlock = getNextBlock(time);
+    const [nextBlock, event] = getNextBlock(time);
     let ttnb = nextBlock.getTime() - Date.now();
 
     // convert to weeks, days, hours, minutes, and seconds (possibly milliseconds too) then display to user
@@ -31,8 +31,6 @@ export default function Clock({ showWeeks, showMilliseconds }) {
     const minutes = Math.floor(ttnb / 60000);
     ttnb -= minutes * 60000;
 
-    console.log(Math.floor(ttnb / 1000))
-
     const seconds = Math.floor(ttnb / 1000);
     ttnb -= seconds * 1000;
 
@@ -41,20 +39,25 @@ export default function Clock({ showWeeks, showMilliseconds }) {
     let result;
 
     if (showWeeks && weeks !== 0) {
-        result = `${weeks}:${days}:${hours}:${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+        result = `${weeks}:${days}:${hours.toString().length < 10 ? '0' + hours : hours}:${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
     } else {
         if (days !== 0) {
-            result = `${days}:${hours}:${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+            result = `${days}:${hours.toString().length < 10 ? '0' + hours : hours}:${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
         } else {
             if (hours !== 0) {
-                result = `${hours}:${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+                result = `${hours.toString().length < 10 ? '0' + hours : hours}:${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
             } else {
-                result = `${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+                result = `${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
             }
         }
     }
 
-    return (<p>{result}</p>)
+    return (
+        <div className='ClockContainer'>
+            <h2 className='ClockTime'>{result}</h2>
+            <h3 className='ClockEvent'>Until {event}</h3>
+        </div>
+    )
 }
 
 // make this also return the index of the block so Clock knows what event is next
@@ -81,17 +84,22 @@ function getNextBlock(now) {
         const seconds = schedule[i][2];
 
         // new Date(year, monthIndex, day, hours, minutes, seconds)
-        blocks.push(new Date(
-            nextSchoolDay.getFullYear(),
-            nextSchoolDay.getMonth(),
-            nextSchoolDay.getDate(),
-            hours,
-            minutes,
-            seconds
-        ));
+        blocks.push({
+            date: new Date(
+                nextSchoolDay.getFullYear(),
+                nextSchoolDay.getMonth(),
+                nextSchoolDay.getDate(),
+                hours,
+                minutes,
+                seconds
+            ),
+            event: schedule[i][3],
+        });
     }
 
-    return blocks.filter(date => date.getTime() > now.getTime())[0];
+    const futureBlocks = blocks.filter(entry => entry.date.getTime() > now.getTime());
+
+    return [futureBlocks[0].date, futureBlocks[0].event];
 }
 
 /**
