@@ -1,4 +1,6 @@
 import { Schedule } from './schedule.js'
+import './Clock.css'
+
 import { useState, useEffect } from 'react';
 
 export default function Clock({ showWeeks }) {
@@ -38,16 +40,18 @@ export default function Clock({ showWeeks }) {
 
     let result;
 
+    console.log(seconds)
+
     if (showWeeks && weeks !== 0) {
-        result = `${weeks}:${days}:${hours.toString().length < 10 ? '0' + hours : hours}:${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
+        result = `${weeks}:${days}:${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
     } else {
         if (days !== 0) {
-            result = `${days}:${hours.toString().length < 10 ? '0' + hours : hours}:${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
+            result = `${days}:${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
         } else {
             if (hours !== 0) {
-                result = `${hours.toString().length < 10 ? '0' + hours : hours}:${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
+                result = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             } else {
-                result = `${minutes.toString().length < 10 ? '0' + minutes : minutes}:${seconds.toString().length < 10 ? '0' + seconds : seconds}`;
+                result = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
             }
         }
     }
