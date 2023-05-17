@@ -2,14 +2,34 @@ import { Schedule } from './schedule.js'
 
 export default function Clock ({showWeeks, showMilliseconds}) {
     const nextBlock = getNextBlock();
-    const ttnb = nextBlock.getTime() - Date.now();
-    
+    let ttnb = nextBlock.getTime() - Date.now();
+
     // convert to weeks, days, hours, minutes, and seconds (possibly milliseconds too) then display to user
+    if (showWeeks) {
+        const weeks = Math.floor(ttnb/604800000)
+        ttnb -= weeks * 604800000;
+    }
 
+    const days = Math.floor(ttnb/86400000);
+    ttnb -= days * 86400000;
 
-    return <p> wassup gents </p>
+    const hours = Math.floor(ttnb/3600000);
+    ttnb -= hours * 3600000;
+
+    const minutes = Math.floor(ttnb/60000);
+    ttnb -= minutes * 60000;
+
+    console.log(Math.floor(ttnb/1000))
+
+    const seconds = Math.floor(ttnb/1000);
+    ttnb -= seconds * 1000;
+
+    // at this point, ttnb is the number of milliseconds
+
+    return <p></p>
 }
 
+// make this also return the index of the block so Clock knows what event is next
 function getNextBlock () {
     const now = new Date(Date.now());
     const schedule = getSchedule(now) === 0 ? Schedule.MON_WED_FRI : 
