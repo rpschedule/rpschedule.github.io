@@ -1,20 +1,20 @@
 import { Schedule } from './schedule.js' 
 
-export default function Clock () {
-    console.log(getNextBlock());
-
-    // const ttnb = nextBlock.getTime() - Date.now();
+export default function Clock ({showWeeks, showMilliseconds}) {
+    const nextBlock = getNextBlock();
+    const ttnb = nextBlock.getTime() - Date.now();
     
-    // convert to days, hours, minutes, and seconds (possibly milliseconds too) then display to user
+    // convert to weeks, days, hours, minutes, and seconds (possibly milliseconds too) then display to user
+
 
     return <p> wassup gents </p>
 }
 
 function getNextBlock () {
     const now = new Date(Date.now());
-    const schedule = getSchedule(now) === 1 ? Schedule.MON_WED_FRI : 
-        getSchedule(now) === 2 ? Schedule.TUES_THUR :
-        getSchedule(now) === 3 ? Schedule.HALF_DAY : null; 
+    const schedule = getSchedule(now) === 0 ? Schedule.MON_WED_FRI : 
+        getSchedule(now) === 1 ? Schedule.TUES_THUR :
+        getSchedule(now) === 2 ? Schedule.HALF_DAY : null; 
     let nextSchoolDay;
 
     let lastDayWasSchoolDay = false;
@@ -64,7 +64,7 @@ function isSchoolDay (date) {
  * @returns {boolean} 
  */
 function isHalfDay (date) {
-    return !Schedule.YEAR_SCHEDULE[date.getMonth()].halfdays.includes(date.getDate());
+    return Schedule.YEAR_SCHEDULE[date.getMonth()].halfdays.includes(date.getDate());
 }
 
 /**
@@ -79,7 +79,9 @@ function isHalfDay (date) {
 function getSchedule (date) {
     if ( !isSchoolDay(date) ) return null;
     if ( isHalfDay(date) ) return 2;
-    if ( [2, 4, 6].includes(date.getDay()) ) return 0;
-    if ( [3, 5].includes(date.getDay()) ) return 1;
+    if ( [1, 3, 5].includes(date.getDay()) ) return 0;
+    if ( [2, 4].includes(date.getDay()) ) return 1;
     return null;
+
+    
 }
