@@ -5,8 +5,9 @@ export default function Clock ({showWeeks, showMilliseconds}) {
     let ttnb = nextBlock.getTime() - Date.now();
 
     // convert to weeks, days, hours, minutes, and seconds (possibly milliseconds too) then display to user
+    let weeks;
     if (showWeeks) {
-        const weeks = Math.floor(ttnb/604800000)
+        weeks = Math.floor(ttnb/604800000)
         ttnb -= weeks * 604800000;
     }
 
@@ -25,8 +26,24 @@ export default function Clock ({showWeeks, showMilliseconds}) {
     ttnb -= seconds * 1000;
 
     // at this point, ttnb is the number of milliseconds
+    
+    let result;
 
-    return <p></p>
+    if (showWeeks && weeks !== 0) {
+        result = `${weeks}:${days}:${hours}:${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+    } else {
+        if (days !== 0) {
+            result = `${days}:${hours}:${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+        } else {
+            if (hours !== 0) {
+                result = `${hours}:${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+            } else {
+                result = `${minutes}:${seconds}${showMilliseconds ? ':' + ttnb : ''}`;
+            }
+        }
+    }
+
+    return (<p>{result}</p>)
 }
 
 // make this also return the index of the block so Clock knows what event is next
