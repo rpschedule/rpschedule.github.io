@@ -1,7 +1,7 @@
 import { Schedule } from './schedule.js' 
 
 export default function Clock () {
-    const nextBlock = getNextBlock();
+    console.log(getNextBlock());
 
     // const ttnb = nextBlock.getTime() - Date.now();
     
@@ -12,17 +12,21 @@ export default function Clock () {
 
 function getNextBlock () {
     const now = new Date(Date.now());
+    const schedule = getSchedule(now) === 1 ? Schedule.MON_WED_FRI : 
+        getSchedule(now) === 2 ? Schedule.TUES_THUR :
+        getSchedule(now) === 3 ? Schedule.HALF_DAY : null; 
     let nextSchoolDay;
 
+    let lastDayWasSchoolDay = false;
     for ( let i = 0; i < 365 && !nextSchoolDay; i++ ) {
         const compDate = new Date ( now.getTime() + 86400000 * i );
-        if ( isSchoolDay(compDate) ) nextSchoolDay = new Date(compDate);
+        const lastBlock = new Date(compDate.getFullYear(), compDate.getMonth(), compDate.getDate(), schedule[schedule.length - 1][0], schedule[schedule.length - 1][1], schedule[schedule.length - 1][2]);
+
+        if ( isSchoolDay(compDate) && (compDate.getTime() <= lastBlock.getTime() || lastDayWasSchoolDay) ) nextSchoolDay = new Date(compDate);
+        if ( isSchoolDay(compDate)) lastDayWasSchoolDay = true;
     }
 
     let blocks = []
-    let schedule = getSchedule(now) === 1 ? Schedule.MON_WED_FRI : 
-        getSchedule(now) === 2 ? Schedule.TUES_THUR :
-        getSchedule(now) === 3 ? Schedule.HALF_DAY : null; 
 
     for (let i in schedule) {
         const hours = schedule[i][0];
@@ -40,7 +44,7 @@ function getNextBlock () {
         ));
     }
 
-    return blocks.filter(date => date.getTime() > now.getTime());
+    return blocks.filter(date => date.getTime() > now.getTime())[0];
 }
 
 /**
