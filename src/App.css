@@ -1,0 +1,14 @@
+@import './index.css';
+
+.Bottom {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    font-family: 'Jetbrains Mono', monospace;
+    color: var(--event);
+    text-align: center;
+}
+
+.Bottom a {
+
+}
