@@ -1,0 +1,11 @@
+:root {
+    --background: #121619;
+    --time: #d9dbf1;
+    --event: #d9dbf1aa;
+}
+
+body {
+    background: var(--background);
+    color: var(--time);
+    overflow: hidden;
+}
