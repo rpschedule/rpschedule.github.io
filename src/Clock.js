@@ -9,7 +9,7 @@ export default function Clock({ showWeeks }) {
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
-        }, 500);
+        }, 1000);
 
         return () => clearInterval(interval);
     }, []);
