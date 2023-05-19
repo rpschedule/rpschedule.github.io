@@ -2,10 +2,16 @@
     --background: #121619;
     --time: #d9dbf1;
     --event: #d9dbf1aa;
+    --highlights: 14, 173, 105;
+    --lighter-highlights: 204, 227, 222;
 }
 
 body {
     background: var(--background);
     color: var(--time);
     overflow: hidden;
+}
+
+::selection, ::-moz-selection {
+    background: rgba(var(--highlights), .5);
 }

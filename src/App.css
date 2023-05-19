@@ -10,5 +10,22 @@
 }
 
 .Bottom a {
+    text-decoration: none;
+}
 
+.Bottom a:link, .Bottom a:visited {
+    color: rgba(var(--highlights), .7)
+}
+
+.Bottom a:hover, .Bottom a:focus {
+    background: rgba(var(--highlights), .2)
+}
+
+.Bottom a:focus {
+    outline: solid 1px rgb(var(--lighter-highlights));
+    border-radius: .1em;
+}
+
+.Bottom a:active {
+    color: rgb(var(--highlights));
 }
