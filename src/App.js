@@ -6,7 +6,7 @@ import Clock from './Clock'
 function App() {
   const [schedule, setSchedule] = useState(null);
 
-  axios.get('https://pastebin.com/raw/uGiQVyGZ')
+  axios.get('https://raw.githubusercontent.com/rpschedule/pastebin/main/alt_schedule.json')
   .then(response => {
     alert(response.data);
     setSchedule(response.data.schedule)
