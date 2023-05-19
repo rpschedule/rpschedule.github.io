@@ -2,13 +2,26 @@ import { Schedule } from './schedule.js'
 import './Clock.css'
 
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 
-export default function Clock({ showWeeks, schedule }) {
+export default function Clock({ showWeeks }) {
     const [time, setTime] = useState(new Date(Date.now()));
-    schedule = schedule ?? getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
-        getSchedule(time) === 1 ? Schedule.TUES_THUR :
-        getSchedule(time) === 2 ? Schedule.HALF_DAY : null;
-    
+    const [schedule, setSchedule] = useState(
+        getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
+            getSchedule(time) === 1 ? Schedule.TUES_THUR :
+                getSchedule(time) === 2 ? Schedule.HALF_DAY : null
+    )
+
+    axios.get('https://raw.githubusercontent.com/rpschedule/pastebin/main/alt_schedule.json')
+        .then(response => {
+            if (response.data.alt_schedule) {
+                setSchedule(response.data.schedule)
+            }
+        })
+        .catch(error => {
+            console.log(error.message)
+        });
+
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
