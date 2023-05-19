@@ -1,22 +1,19 @@
 import { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 import Clock from './Clock'
 
 function App() {
   const [schedule, setSchedule] = useState(null);
 
-  useEffect(() => {
-    fetch('https://pastebin.com/raw/uGiQVyGZ')
-       .then((res) => res.json())
-       .then((data) => {
-          if ( data.use_alternate_schedule ) {
-            setSchedule(data.alternate_schedule);
-          }
-       })
-       .catch((err) => {
-          console.log(err.message);
-       });
-  }, []);
+  axios.get('https://pastebin.com/raw/uGiQVyGZ')
+  .then(response => {
+    alert(response.data);
+    setSchedule(response.data.schedule)
+  })
+  .catch(error => {
+    alert(error)
+  });
 
   return (
     <div className='App'>
