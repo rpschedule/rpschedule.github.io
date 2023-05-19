@@ -3,9 +3,12 @@ import './Clock.css'
 
 import { useState, useEffect } from 'react';
 
-export default function Clock({ showWeeks }) {
-    const [time, setTime] = useState(new Date());
-
+export default function Clock({ showWeeks, schedule }) {
+    const [time, setTime] = useState(new Date(Date.now()));
+    schedule = schedule ?? getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
+        getSchedule(time) === 1 ? Schedule.TUES_THUR :
+        getSchedule(time) === 2 ? Schedule.HALF_DAY : null;
+    
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
@@ -14,7 +17,7 @@ export default function Clock({ showWeeks }) {
         return () => clearInterval(interval);
     }, []);
 
-    const [nextBlock, event] = getNextBlock(time);
+    const [nextBlock, event] = getNextBlock(time, schedule);
     let ttnb = nextBlock.getTime() - Date.now();
 
     // convert to weeks, days, hours, minutes, and seconds (possibly milliseconds too) then display to user
@@ -63,10 +66,7 @@ export default function Clock({ showWeeks }) {
 }
 
 // make this also return the index of the block so Clock knows what event is next
-function getNextBlock(now) {
-    const schedule = getSchedule(now) === 0 ? Schedule.MON_WED_FRI :
-        getSchedule(now) === 1 ? Schedule.TUES_THUR :
-            getSchedule(now) === 2 ? Schedule.HALF_DAY : null;
+function getNextBlock(now, schedule) {
     let nextSchoolDay;
 
     let lastDayWasSchoolDay = false;
