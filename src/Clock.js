@@ -5,11 +5,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Clock({ showWeeks }) {
-    const [time, setTime] = useState(new Date(Date.now()));
+    const [time, setTime] = useState(new Date(Date.now() - 86400000));
     const [schedule, setSchedule] = useState( // error: on days like sunday, this will be null. it needs to be updated/created somewhere in getNextBlock()
         getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
             getSchedule(time) === 1 ? Schedule.TUES_THUR :
-                getSchedule(time) === 2 ? Schedule.HALF_DAY : null
+                getSchedule(time) === 2 ? Schedule.HALF_DAY : undefined
     )
 
     axios.get('https://raw.githubusercontent.com/rpschedule/pastebin/main/alt_schedule.json')
@@ -24,7 +24,7 @@ export default function Clock({ showWeeks }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            setTime(new Date());
+            // setTime(new Date());
         }, 1000);
 
         return () => clearInterval(interval);
@@ -85,18 +85,32 @@ function getNextBlock(now, schedule) {
     let lastDayWasSchoolDay = false;
     for (let i = 0; i < 365 && !nextSchoolDay; i++) {
         const compDate = new Date(now.getTime() + 86400000 * i);
-        const lastBlock = new Date(compDate.getFullYear(), compDate.getMonth(), compDate.getDate(), schedule[schedule.length - 1][0], schedule[schedule.length - 1][1], schedule[schedule.length - 1][2]);
-
-        if (isSchoolDay(compDate) && (compDate.getTime() <= lastBlock.getTime() || lastDayWasSchoolDay)) nextSchoolDay = new Date(compDate);
-        if (isSchoolDay(compDate)) lastDayWasSchoolDay = true;
+        
+        if (isSchoolDay(compDate)) {
+            let compSchedule = (
+                getSchedule(compDate) === 0 ? Schedule.MON_WED_FRI :
+                    getSchedule(compDate) === 1 ? Schedule.TUES_THUR :
+                        getSchedule(compDate) === 2 ? Schedule.HALF_DAY : undefined
+            )
+            
+            if ( i === 0 && schedule) compSchedule = schedule; 
+            const lastBlock = new Date(compDate.getFullYear(), compDate.getMonth(), compDate.getDate(), compSchedule[compSchedule.length - 1][0], compSchedule[compSchedule.length - 1][1], compSchedule[compSchedule.length - 1][2]);
+            
+            if (isSchoolDay(compDate) && (compDate.getTime() <= lastBlock.getTime() || lastDayWasSchoolDay)) nextSchoolDay = new Date(compDate);
+            if (isSchoolDay(compDate)) lastDayWasSchoolDay = true;
+        }
     }
 
     let blocks = []
+    let nextSchedule = 
+        getSchedule(nextSchoolDay) === 0 ? Schedule.MON_WED_FRI :
+            getSchedule(nextSchoolDay) === 1 ? Schedule.TUES_THUR :
+                getSchedule(nextSchoolDay) === 2 ? Schedule.HALF_DAY : undefined
 
-    for (let i in schedule) {
-        const hours = schedule[i][0];
-        const minutes = schedule[i][1];
-        const seconds = schedule[i][2];
+    for (let i in nextSchedule) {
+        const hours = nextSchedule[i][0];
+        const minutes = nextSchedule[i][1];
+        const seconds = nextSchedule[i][2];
 
         // new Date(year, monthIndex, day, hours, minutes, seconds)
         blocks.push({
@@ -108,7 +122,7 @@ function getNextBlock(now, schedule) {
                 minutes,
                 seconds
             ),
-            event: schedule[i][3],
+            event: nextSchedule[i][3],
         });
     }
 
