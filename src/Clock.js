@@ -6,7 +6,7 @@ import axios from 'axios';
 
 export default function Clock({ showWeeks }) {
     const [time, setTime] = useState(new Date(Date.now()));
-    const [schedule, setSchedule] = useState(
+    const [schedule, setSchedule] = useState( // error: on days like sunday, this will be null. it needs to be updated/created somewhere in getNextBlock()
         getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
             getSchedule(time) === 1 ? Schedule.TUES_THUR :
                 getSchedule(time) === 2 ? Schedule.HALF_DAY : null
