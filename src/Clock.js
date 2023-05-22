@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 export default function Clock({ showWeeks }) {
-    const [time, setTime] = useState(new Date(Date.now() - 86400000));
+    const [time, setTime] = useState(new Date(Date.now() + 604800000));
     const [schedule, setSchedule] = useState( // error: on days like sunday, this will be null. it needs to be updated/created somewhere in getNextBlock()
         getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
             getSchedule(time) === 1 ? Schedule.TUES_THUR :
@@ -24,14 +24,14 @@ export default function Clock({ showWeeks }) {
 
     useEffect(() => {
         const interval = setInterval(() => {
-            // setTime(new Date());
+            setTime(new Date());
         }, 1000);
 
         return () => clearInterval(interval);
     }, []);
 
     const [nextBlock, event] = getNextBlock(time, schedule);
-    let ttnb = nextBlock.getTime() - Date.now();
+    let ttnb = nextBlock.getTime() - time.getTime();
 
     // convert to weeks, days, hours, minutes, and seconds (possibly milliseconds too) then display to user
     let weeks;
@@ -78,7 +78,6 @@ export default function Clock({ showWeeks }) {
     )
 }
 
-// make this also return the index of the block so Clock knows what event is next
 function getNextBlock(now, schedule) {
     let nextSchoolDay;
 
@@ -89,11 +88,12 @@ function getNextBlock(now, schedule) {
         if (isSchoolDay(compDate)) {
             let compSchedule = (
                 getSchedule(compDate) === 0 ? Schedule.MON_WED_FRI :
-                    getSchedule(compDate) === 1 ? Schedule.TUES_THUR :
-                        getSchedule(compDate) === 2 ? Schedule.HALF_DAY : undefined
+                getSchedule(compDate) === 1 ? Schedule.TUES_THUR :
+                getSchedule(compDate) === 2 ? Schedule.HALF_DAY : undefined
             )
-            
+
             if ( i === 0 && schedule) compSchedule = schedule; 
+            
             const lastBlock = new Date(compDate.getFullYear(), compDate.getMonth(), compDate.getDate(), compSchedule[compSchedule.length - 1][0], compSchedule[compSchedule.length - 1][1], compSchedule[compSchedule.length - 1][2]);
             
             if (isSchoolDay(compDate) && (compDate.getTime() <= lastBlock.getTime() || lastDayWasSchoolDay)) nextSchoolDay = new Date(compDate);
@@ -133,17 +133,15 @@ function getNextBlock(now, schedule) {
 
 /**
  * Whether or not it is a school day
- * @param {object} schedule - The schedule to use
  * @param {date} date - The date to use
  * @returns {boolean} 
  */
 function isSchoolDay(date) {
-    return !Schedule.YEAR_SCHEDULE[date.getMonth()].offdays.includes(date.getDate());
+    return !(Schedule.YEAR_SCHEDULE[date.getMonth()].offdays.includes(date.getDate()) || [0, 6].includes(date.getDay()));
 }
 
 /**
  * Whether or not it is a half day
- * @param {object} schedule - The schedule to use
  * @param {date} date - The date to use
  * @returns {boolean} 
  */
@@ -166,6 +164,4 @@ function getSchedule(date) {
     if ([1, 3, 5].includes(date.getDay())) return 0;
     if ([2, 4].includes(date.getDay())) return 1;
     return null;
-
-
 }
