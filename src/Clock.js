@@ -4,8 +4,8 @@ import './Clock.css'
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function Clock({ showWeeks }) {
-    const [time, setTime] = useState(new Date(Date.now() + 604800000));
+export default function Clock({ showWeeks, showTenthSeconds }) {
+    const [time, setTime] = useState(new Date());
     const [schedule, setSchedule] = useState( // error: on days like sunday, this will be null. it needs to be updated/created somewhere in getNextBlock()
         getSchedule(time) === 0 ? Schedule.MON_WED_FRI :
             getSchedule(time) === 1 ? Schedule.TUES_THUR :
@@ -25,7 +25,7 @@ export default function Clock({ showWeeks }) {
     useEffect(() => {
         const interval = setInterval(() => {
             setTime(new Date());
-        }, 1000);
+        }, 100);
 
         return () => clearInterval(interval);
     }, []);
@@ -57,15 +57,15 @@ export default function Clock({ showWeeks }) {
     let result;
 
     if (showWeeks && weeks !== 0) {
-        result = `${weeks}:${days}:${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+        result = `${weeks}:${days}:${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}${showTenthSeconds ? '.' + Math.floor(ttnb/100) : ''}`;
     } else {
         if (days !== 0) {
-            result = `${days}:${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+            result = `${days}:${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}${showTenthSeconds ? '.' + Math.floor(ttnb/100) : ''}`;
         } else {
             if (hours !== 0) {
-                result = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                result = `${hours}:${minutes < 10 ? '0' + minutes : minutes}:${seconds < 10 ? '0' + seconds : seconds}${showTenthSeconds ? '.' + Math.floor(ttnb/100) : ''}`;
             } else {
-                result = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}`;
+                result = `${minutes}:${seconds < 10 ? '0' + seconds : seconds}${showTenthSeconds ? '.' + Math.floor(ttnb/100) : ''}`;
             }
         }
     }
