@@ -107,6 +107,8 @@ function getNextBlock(now, schedule) {
             getSchedule(nextSchoolDay) === 1 ? Schedule.TUES_THUR :
                 getSchedule(nextSchoolDay) === 2 ? Schedule.HALF_DAY : undefined
 
+    if (schedule) nextSchedule = schedule;
+
     for (let i in nextSchedule) {
         const hours = nextSchedule[i][0];
         const minutes = nextSchedule[i][1];
