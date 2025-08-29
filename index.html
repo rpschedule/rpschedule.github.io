@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>RP Schedule</title>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
+        <link rel="stylesheet" href="./style.css">
+        <meta name="description" content="A simple website to display the amount of time left until the current block ends. Uses the RayPec bell schedule for timing. Works with half days and days off.">
+        <meta name="keywords" content="rpschedule, raypec, bell schedule, schedule, rp, time until next block, ttnb, bell">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="./main.js"></script>
+    </head>
+    <body>
+        <div id="centered">
+            <div id="ttnbtext"> 
+                <span id="time"></span>
+            </div>
+        </div>
+        <div id="lunchSel">
+            <span id="A" onclick="setLunch(0)">lunch A</span> / <span id="B" onclick="setLunch(1)">lunch B</span> / <span id="C" onclick="setLunch(2)">lunch C</span>
+        </div>
+    </body>
+</html>
