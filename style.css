@@ -15,6 +15,16 @@
     color: var(--text)
 }
 
+@media (max-width: 599px) {
+    #time {
+        font-size: 6rem;
+    }
+
+    #ttnbtext {
+        font-size: 1.5rem;
+    }
+}
+
 body {
     background: var(--background);
     color: var(--text);
