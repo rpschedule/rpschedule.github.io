@@ -20,7 +20,7 @@ function update (txt, id) {
     if ( txt === element.innerHTML) {
         return;
     }
-    
+
     // trusted invokers, no sanitization
     element.innerHTML = txt;
 }
@@ -35,7 +35,7 @@ function dispTmLft (id) {
     const minutes = time.getMinutes();
     const seconds = time.getSeconds();
 
-    const specialSchedule = SCHEDULE.exceptions?.[year]?.[month + 1]?.[day + 1];
+    const specialSchedule = SCHEDULE.exceptions?.[year]?.[month + 1]?.[day];
     
     // return early if there's no school
     if (
@@ -45,8 +45,6 @@ function dispTmLft (id) {
     ) return update("<span id=\"time\">No school today</span>", id); 
 
     const schedule = SCHEDULE[specialSchedule || SCHEDULE.weekly[weekday]];
-
-    console.log(weekday)
 
     // Check if school is over
     if ( hours > schedule[schedule.length - 1][1][0] || (
@@ -97,7 +95,7 @@ function dispTmLft (id) {
 
         const hoursMinutesString = hoursLeft > 0 ? `${hoursLeft}:${minutesLeft.toString().padStart(2, '0')}` : minutesLeft;
         const paddedSeconds = secondsLeft.toString().padStart(2, '0');
-        const beginsEndsString = nextEvent[3] !== true ? (isStart ? " begins" : " ends") : "";
+        const beginsEndsString = nextEvent[3] !== true ? (isStart ? " begins" : " ends") : (isStart ? " begin" : " end");
 
         update(`<span id="time">${hoursMinutesString}:${paddedSeconds}</span><br>until ${nextEvent[2]}${beginsEndsString}`, id);
 
@@ -192,6 +190,20 @@ const SCHEDULE = {
         [[13,13],[13,44],"block 6"],
         [[13,49],[14,20],"block 7"]
     ],
+    sept10th2025:[
+        [[7, 25],[8,45],"advisory"],
+        [[8,50][9,26],"block 1"],
+        [[9,31][10,7],"block 2"],
+        [[10,12][10,48],"block 3"],
+        [[10,53][11,29],"block 4"],
+        [[11,34][12,48],"block 5",[
+            [[11,34],[11,58],"lunch A"],
+            [[11,59],[12,23],"lunch B"],
+            [[12,24],[12,48],"lunch C"],
+        ]],
+        [[12,53][1,34],"block 6"],
+        [[1,39][2,20],"block 7"],
+    ],
     weekly: [
         "",
         "monTueFri",
@@ -205,6 +217,7 @@ const SCHEDULE = {
         2025: {
             9: {
                 1: "",
+                10: "sept10th2025",
                 12: "earlyRelease",
                 26: "earlyRelease"
             },
