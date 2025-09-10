@@ -26,7 +26,7 @@ function update (txt, id) {
 }
 
 function dispTmLft (id) {
-    const time = new Date(2025, 8, 10, 8, 25);
+    const time = new Date(Date.now());
     const year = time.getFullYear();
     const month = time.getMonth(); // 0 - 11
     const day = time.getDate(); // 1 - 31
